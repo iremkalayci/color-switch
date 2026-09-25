@@ -1,7 +1,7 @@
 from sdks.novavision.src.helper.package import PackageHelper
 
 from components.Package.src.models.PackageModel import (
-    ColorSwitchModel,
+    PackageModel,
     PackageConfigs,
     ConfigExecutor,
     PackageOutputs,
@@ -103,7 +103,7 @@ def build_response(context, selected_color):
     )
 
     package = PackageHelper(
-        packageModel=ColorSwitchModel,
+        packageModel=PackageModel,
         packageConfigs=package_configs
     )
 

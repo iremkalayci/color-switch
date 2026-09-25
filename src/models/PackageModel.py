@@ -176,7 +176,7 @@ class PackageConfigs(Configs):
 # PACKAGE MODEL
 # =========================
 
-class ColorSwitchModel(Package):
+class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["component"] = "component"
     name: Literal["ColorSwitch"] = "ColorSwitch"
