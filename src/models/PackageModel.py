@@ -24,7 +24,7 @@ class InputImage(Input):
     type: str = "object"
 
     class Config:
-        title = "Input Image"
+        title = "Image"
 
 
 class PackageInputs(Inputs):
@@ -32,7 +32,7 @@ class PackageInputs(Inputs):
 
 
 # =========================
-# OUTPUTS
+# SWITCH CASE OUTPUTS
 # =========================
 
 class OutputRed(Output):
@@ -40,11 +40,17 @@ class OutputRed(Output):
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "Red"
+
 
 class OutputBlue(Output):
     name: Literal["blue"] = "blue"
     value: str
     type: Literal["string"] = "string"
+
+    class Config:
+        title = "Blue"
 
 
 class OutputGreen(Output):
@@ -52,11 +58,17 @@ class OutputGreen(Output):
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "Green"
+
 
 class OutputYellow(Output):
     name: Literal["yellow"] = "yellow"
     value: str
     type: Literal["string"] = "string"
+
+    class Config:
+        title = "Yellow"
 
 
 class OutputOrange(Output):
@@ -64,11 +76,17 @@ class OutputOrange(Output):
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "Orange"
+
 
 class OutputPurple(Output):
     name: Literal["purple"] = "purple"
     value: str
     type: Literal["string"] = "string"
+
+    class Config:
+        title = "Purple"
 
 
 class OutputPink(Output):
@@ -76,11 +94,17 @@ class OutputPink(Output):
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "Pink"
+
 
 class OutputBlack(Output):
     name: Literal["black"] = "black"
     value: str
     type: Literal["string"] = "string"
+
+    class Config:
+        title = "Black"
 
 
 class OutputWhite(Output):
@@ -88,17 +112,26 @@ class OutputWhite(Output):
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "White"
+
 
 class OutputGray(Output):
     name: Literal["gray"] = "gray"
     value: str
     type: Literal["string"] = "string"
 
+    class Config:
+        title = "Gray"
+
 
 class OutputDefault(Output):
     name: Literal["default"] = "default"
     value: str
     type: Literal["string"] = "string"
+
+    class Config:
+        title = "Default"
 
 
 class PackageOutputs(Outputs):
