@@ -1,7 +1,7 @@
 from sdks.novavision.src.helper.package import PackageHelper
 
-from components.Package.src.models.PackageModel import (
-    PackageModel,
+from components.Package.src.models.ColorSwitchModel import (
+    ColorSwitchModel,
     PackageConfigs,
     ConfigExecutor,
     PackageOutputs,
@@ -24,14 +24,12 @@ from components.Package.src.models.PackageModel import (
 def build_response(context, selected_color):
 
     def get_branch(color):
-
         if color == selected_color:
             return "forward"
 
         return "stop"
 
     outputs = PackageOutputs(
-
         red=OutputRed(
             value="red",
             branch=get_branch("red")
@@ -105,7 +103,7 @@ def build_response(context, selected_color):
     )
 
     package = PackageHelper(
-        packageModel=PackageModel,
+        packageModel=ColorSwitchModel,
         packageConfigs=package_configs
     )
 
