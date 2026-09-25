@@ -1,8 +1,7 @@
-from typing import List, Optional, Union, Literal
+from typing import Optional, Union, Literal
 
 from sdks.novavision.src.base.model import (
     Package,
-    Image,
     Inputs,
     Configs,
     Outputs,
@@ -18,114 +17,114 @@ from sdks.novavision.src.base.model import (
 # INPUT
 # =========================
 
-class InputImage(Input):
-    name: Literal["inputImage"] = "inputImage"
-    value: Union[List[Image], Image]
-    type: str = "object"
+class InputData(Input):
+    name: Literal["inputData"] = "inputData"
+    value: str
+    type: Literal["string"] = "string"
 
     class Config:
-        title = "Image"
+        title = "Input"
 
 
 class PackageInputs(Inputs):
-    inputImage: InputImage
+    inputData: InputData
 
 
 # =========================
-# SWITCH CASE OUTPUTS
+# OUTPUTS
 # =========================
 
-class OutputRed(Output):
-    name: Literal["red"] = "red"
+class Case1(Output):
+    name: Literal["case1"] = "case1"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Red"
+        title = "Case 1"
 
 
-class OutputBlue(Output):
-    name: Literal["blue"] = "blue"
+class Case2(Output):
+    name: Literal["case2"] = "case2"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Blue"
+        title = "Case 2"
 
 
-class OutputGreen(Output):
-    name: Literal["green"] = "green"
+class Case3(Output):
+    name: Literal["case3"] = "case3"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Green"
+        title = "Case 3"
 
 
-class OutputYellow(Output):
-    name: Literal["yellow"] = "yellow"
+class Case4(Output):
+    name: Literal["case4"] = "case4"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Yellow"
+        title = "Case 4"
 
 
-class OutputOrange(Output):
-    name: Literal["orange"] = "orange"
+class Case5(Output):
+    name: Literal["case5"] = "case5"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Orange"
+        title = "Case 5"
 
 
-class OutputPurple(Output):
-    name: Literal["purple"] = "purple"
+class Case6(Output):
+    name: Literal["case6"] = "case6"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Purple"
+        title = "Case 6"
 
 
-class OutputPink(Output):
-    name: Literal["pink"] = "pink"
+class Case7(Output):
+    name: Literal["case7"] = "case7"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Pink"
+        title = "Case 7"
 
 
-class OutputBlack(Output):
-    name: Literal["black"] = "black"
+class Case8(Output):
+    name: Literal["case8"] = "case8"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Black"
+        title = "Case 8"
 
 
-class OutputWhite(Output):
-    name: Literal["white"] = "white"
+class Case9(Output):
+    name: Literal["case9"] = "case9"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "White"
+        title = "Case 9"
 
 
-class OutputGray(Output):
-    name: Literal["gray"] = "gray"
+class Case10(Output):
+    name: Literal["case10"] = "case10"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Gray"
+        title = "Case 10"
 
 
-class OutputDefault(Output):
+class Default(Output):
     name: Literal["default"] = "default"
     value: str
     type: Literal["string"] = "string"
@@ -135,17 +134,17 @@ class OutputDefault(Output):
 
 
 class PackageOutputs(Outputs):
-    red: OutputRed
-    blue: OutputBlue
-    green: OutputGreen
-    yellow: OutputYellow
-    orange: OutputOrange
-    purple: OutputPurple
-    pink: OutputPink
-    black: OutputBlack
-    white: OutputWhite
-    gray: OutputGray
-    default: OutputDefault
+    case1: Case1
+    case2: Case2
+    case3: Case3
+    case4: Case4
+    case5: Case5
+    case6: Case6
+    case7: Case7
+    case8: Case8
+    case9: Case9
+    case10: Case10
+    default: Default
 
 
 # =========================
@@ -153,8 +152,8 @@ class PackageOutputs(Outputs):
 # =========================
 
 class PackageRequest(Request):
-    inputs: Optional[PackageInputs] = None
-    configs: Optional[Configs] = None
+    inputs: Optional[PackageInputs]
+    configs: Optional[Configs]
 
     class Config:
         json_schema_extra = {
@@ -177,7 +176,7 @@ class PackageExecutor(Config):
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Color Switch"
+        title = "Switch Case"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -197,10 +196,6 @@ class ConfigExecutor(Config):
             "target": "value"
         }
 
-
-# =========================
-# PACKAGE CONFIGS
-# =========================
 
 class PackageConfigs(Configs):
     executor: ConfigExecutor

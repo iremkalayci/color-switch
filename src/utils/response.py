@@ -7,76 +7,55 @@ from components.Package.src.models.PackageModel import (
     PackageOutputs,
     PackageResponse,
     PackageExecutor,
-    OutputRed,
-    OutputBlue,
-    OutputGreen,
-    OutputYellow,
-    OutputOrange,
-    OutputPurple,
-    OutputPink,
-    OutputBlack,
-    OutputWhite,
-    OutputGray,
-    OutputDefault,
+    Case1,
+    Case2,
+    Case3,
+    Case4,
+    Case5,
+    Case6,
+    Case7,
+    Case8,
+    Case9,
+    Case10,
+    Default,
 )
 
 
-def build_response(context, selected_color):
+def build_response(context, selected_case):
 
-    def get_branch(color):
-        if color == selected_color:
-            return "forward"
-        return "stop"
+    cases = {
+        "case1": Case1,
+        "case2": Case2,
+        "case3": Case3,
+        "case4": Case4,
+        "case5": Case5,
+        "case6": Case6,
+        "case7": Case7,
+        "case8": Case8,
+        "case9": Case9,
+        "case10": Case10,
+        "default": Default,
+    }
 
-    outputs = PackageOutputs(
-        red=OutputRed(
-            value="red",
-            branch=get_branch("red")
-        ),
-        blue=OutputBlue(
-            value="blue",
-            branch=get_branch("blue")
-        ),
-        green=OutputGreen(
-            value="green",
-            branch=get_branch("green")
-        ),
-        yellow=OutputYellow(
-            value="yellow",
-            branch=get_branch("yellow")
-        ),
-        orange=OutputOrange(
-            value="orange",
-            branch=get_branch("orange")
-        ),
-        purple=OutputPurple(
-            value="purple",
-            branch=get_branch("purple")
-        ),
-        pink=OutputPink(
-            value="pink",
-            branch=get_branch("pink")
-        ),
-        black=OutputBlack(
-            value="black",
-            branch=get_branch("black")
-        ),
-        white=OutputWhite(
-            value="white",
-            branch=get_branch("white")
-        ),
-        gray=OutputGray(
-            value="gray",
-            branch=get_branch("gray")
-        ),
-        default=OutputDefault(
-            value="default",
-            branch=get_branch("default")
-        ),
-    )
+    outputs = {}
+
+    for case_name, output_class in cases.items():
+
+        branch = (
+            "forward"
+            if case_name == selected_case
+            else "stop"
+        )
+
+        outputs[case_name] = output_class(
+            value=case_name,
+            branch=branch
+        )
+
+    package_outputs = PackageOutputs(**outputs)
 
     package_response = PackageResponse(
-        outputs=outputs
+        outputs=package_outputs
     )
 
     package_executor = PackageExecutor(
@@ -96,6 +75,4 @@ def build_response(context, selected_color):
         packageConfigs=package_configs
     )
 
-    package_model = package.build_model(context)
-
-    return package_model
+    return package.build_model(context)
