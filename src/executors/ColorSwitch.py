@@ -16,7 +16,7 @@ from sdks.novavision.src.base.component import Component
 from sdks.novavision.src.helper.executor import Executor
 
 from components.Package.src.utils.response import build_response
-from components.Package.src.models.ColorSwitchModel import ColorSwitchModel
+from components.Package.src.models.PackageModel import ColorSwitchModel
 
 
 class Package(Component):

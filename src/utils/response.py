@@ -1,6 +1,6 @@
 from sdks.novavision.src.helper.package import PackageHelper
 
-from components.Package.src.models.ColorSwitchModel import (
+from components.Package.src.models.PackageModel import (
     ColorSwitchModel,
     PackageConfigs,
     ConfigExecutor,
