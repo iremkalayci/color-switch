@@ -1,7 +1,8 @@
-from typing import Optional, Union, Literal
+from typing import List, Optional, Union, Literal
 
 from sdks.novavision.src.base.model import (
     Package,
+    Image,
     Inputs,
     Configs,
     Outputs,
@@ -17,17 +18,17 @@ from sdks.novavision.src.base.model import (
 # INPUT
 # =========================
 
-class InputColor(Input):
-    name: Literal["color"] = "color"
-    value: str
-    type: Literal["string"] = "string"
+class InputImage(Input):
+    name: Literal["inputImage"] = "inputImage"
+    value: Union[List[Image], Image]
+    type: str = "object"
 
     class Config:
-        title = "Color"
+        title = "Input Image"
 
 
 class PackageInputs(Inputs):
-    color: InputColor
+    inputImage: InputImage
 
 
 # =========================
