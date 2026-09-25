@@ -1,3 +1,14 @@
+"""
+response.py
+
+build_response, outputs -> response -> executor -> config_executor ->
+package_configs -> package zincirini kurar.
+
+context.matched_case ("case1".."case10" ya da "default") degerine gore,
+eslesen case veriyi tasir (branch=None); eslesmeyen tum case'ler
+branch="stop" ile isaretlenip o dallarda akis durdurulur.
+"""
+
 from sdks.novavision.src.helper.package import PackageHelper
 
 from components.Package.src.models.PackageModel import (
@@ -6,68 +17,80 @@ from components.Package.src.models.PackageModel import (
     ConfigExecutor,
     PackageOutputs,
     PackageResponse,
-    PackageExecutor,
-    Case1,
-    Case2,
-    Case3,
-    Case4,
-    Case5,
-    Case6,
-    Case7,
-    Case8,
-    Case9,
-    Case10,
-    Default,
+    ColorSwitch,
+    Case1Output,
+    Case2Output,
+    Case3Output,
+    Case4Output,
+    Case5Output,
+    Case6Output,
+    Case7Output,
+    Case8Output,
+    Case9Output,
+    Case10Output,
+    DefaultOutput,
 )
 
 
-def build_response(context, selected_case):
+CASE_CLASSES = {
+    "case1": Case1Output,
+    "case2": Case2Output,
+    "case3": Case3Output,
+    "case4": Case4Output,
+    "case5": Case5Output,
+    "case6": Case6Output,
+    "case7": Case7Output,
+    "case8": Case8Output,
+    "case9": Case9Output,
+    "case10": Case10Output,
+    "default": DefaultOutput,
+}
 
-    cases = {
-        "case1": Case1,
-        "case2": Case2,
-        "case3": Case3,
-        "case4": Case4,
-        "case5": Case5,
-        "case6": Case6,
-        "case7": Case7,
-        "case8": Case8,
-        "case9": Case9,
-        "case10": Case10,
-        "default": Default,
-    }
 
-    outputs = {}
+def build_response(context):
+    """
+    context.matched_case: ColorSwitch.evaluate_condition() tarafindan
+    belirlenen, inputData'nin hangi case ile eslestigini gosteren
+    string ("case1".."case10" ya da eslesme yoksa "default").
+    """
 
-    for case_name, output_class in cases.items():
+    matched_case = getattr(context, "matched_case", None) or "default"
 
-        branch = (
-            "forward"
-            if case_name == selected_case
-            else "stop"
-        )
+    case_outputs = {}
 
-        outputs[case_name] = output_class(
-            value=case_name,
-            branch=branch
-        )
+    for case_name, OutputClass in CASE_CLASSES.items():
 
-    package_outputs = PackageOutputs(**outputs)
+        if case_name == matched_case:
+            # Eslesen case: veriyi tasir, dal acik kalir.
+            case_outputs[case_name] = OutputClass(
+                value=context.input_data,
+            )
 
-    package_response = PackageResponse(
-        outputs=package_outputs
+        else:
+            # Eslesmeyen case: dal durdurulur.
+            case_outputs[case_name] = OutputClass(
+                value={},
+                branch="stop",
+            )
+
+    outputs = PackageOutputs(
+        **case_outputs
     )
 
-    package_executor = PackageExecutor(
-        value=package_response
+    response = PackageResponse(
+        outputs=outputs
     )
 
-    executor = ConfigExecutor(
-        value=package_executor
+    executor = ColorSwitch(
+        value=response
+    )
+
+    config_executor = ConfigExecutor(
+        value=executor
     )
 
     package_configs = PackageConfigs(
-        executor=executor
+        executor=config_executor
     )
 
     package = PackageHelper(
