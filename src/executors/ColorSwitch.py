@@ -91,6 +91,7 @@ class ColorSwitch(Component):
 
     def run(self):
         self.matched_case = self.evaluate_condition()
+        print("MATCHED CASE:", self.matched_case, flush=True)
         return build_response(context=self)
 
 
