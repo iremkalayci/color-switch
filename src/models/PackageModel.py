@@ -1,34 +1,18 @@
 """
 ColorSwitch PackageModel.
-
-ColorSwitch executor'unun kullandigi tum get_param anahtarlariyla
-(inputData, caseInsensitive, Case1..Case10) uyumlu,
-asagidan yukariya (bottom-up) kurulmus Pydantic modelleri.
+String-based models for testing Switch Case before HSV integration.
 """
-
 from typing import Optional, Union, Literal
 
 from sdks.novavision.src.base.model import (
-    Package,
-    Inputs,
-    Configs,
-    Outputs,
-    Response,
-    Request,
-    Output,
-    Input,
-    Config,
+    Package, Inputs, Configs, Outputs, Response, Request, Output, Input, Config,
 )
 
 
-# ---------------------------------------------------------------------------
-# 1) INPUT
-# ---------------------------------------------------------------------------
-
 class InputData(Input):
     name: Literal["inputData"] = "inputData"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
 
     class Config:
         title = "Input Data"
@@ -38,18 +22,10 @@ class PackageInputs(Inputs):
     inputData: InputData
 
 
-# ---------------------------------------------------------------------------
-# 2) OUTPUTS
-# ---------------------------------------------------------------------------
-# Eslesen case gercek veriyi tasir.
-# Eslesmeyen case'ler branch="stop" alir.
-# Default da ayni sekilde bir output branch'idir.
-
-
 class Case1Output(Output):
     name: Literal["case1"] = "case1"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -58,8 +34,8 @@ class Case1Output(Output):
 
 class Case2Output(Output):
     name: Literal["case2"] = "case2"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -68,8 +44,8 @@ class Case2Output(Output):
 
 class Case3Output(Output):
     name: Literal["case3"] = "case3"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -78,8 +54,8 @@ class Case3Output(Output):
 
 class Case4Output(Output):
     name: Literal["case4"] = "case4"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -88,8 +64,8 @@ class Case4Output(Output):
 
 class Case5Output(Output):
     name: Literal["case5"] = "case5"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -98,8 +74,8 @@ class Case5Output(Output):
 
 class Case6Output(Output):
     name: Literal["case6"] = "case6"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -108,8 +84,8 @@ class Case6Output(Output):
 
 class Case7Output(Output):
     name: Literal["case7"] = "case7"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -118,8 +94,8 @@ class Case7Output(Output):
 
 class Case8Output(Output):
     name: Literal["case8"] = "case8"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -128,8 +104,8 @@ class Case8Output(Output):
 
 class Case9Output(Output):
     name: Literal["case9"] = "case9"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -138,8 +114,8 @@ class Case9Output(Output):
 
 class Case10Output(Output):
     name: Literal["case10"] = "case10"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -148,8 +124,8 @@ class Case10Output(Output):
 
 class DefaultOutput(Output):
     name: Literal["default"] = "default"
-    value: Union[dict, list]
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     branch: Optional[Literal["stop"]] = None
 
     class Config:
@@ -170,15 +146,8 @@ class PackageOutputs(Outputs):
     default: DefaultOutput
 
 
-# ---------------------------------------------------------------------------
-# 3) CASE CONFIGS
-# ---------------------------------------------------------------------------
-
 class ConfigCase1(Config):
-    """
-    Case 1 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 1."""
 
     name: Literal["Case1"] = "Case1"
     value: Optional[str] = None
@@ -188,15 +157,12 @@ class ConfigCase1(Config):
     class Config:
         title = "Case 1 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 1 eslesme degeri"
+            "shortDescription": "Case 1 match value"
         }
 
 
 class ConfigCase2(Config):
-    """
-    Case 2 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 2."""
 
     name: Literal["Case2"] = "Case2"
     value: Optional[str] = None
@@ -206,15 +172,12 @@ class ConfigCase2(Config):
     class Config:
         title = "Case 2 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 2 eslesme degeri"
+            "shortDescription": "Case 2 match value"
         }
 
 
 class ConfigCase3(Config):
-    """
-    Case 3 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 3."""
 
     name: Literal["Case3"] = "Case3"
     value: Optional[str] = None
@@ -224,15 +187,12 @@ class ConfigCase3(Config):
     class Config:
         title = "Case 3 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 3 eslesme degeri"
+            "shortDescription": "Case 3 match value"
         }
 
 
 class ConfigCase4(Config):
-    """
-    Case 4 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 4."""
 
     name: Literal["Case4"] = "Case4"
     value: Optional[str] = None
@@ -242,15 +202,12 @@ class ConfigCase4(Config):
     class Config:
         title = "Case 4 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 4 eslesme degeri"
+            "shortDescription": "Case 4 match value"
         }
 
 
 class ConfigCase5(Config):
-    """
-    Case 5 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 5."""
 
     name: Literal["Case5"] = "Case5"
     value: Optional[str] = None
@@ -260,15 +217,12 @@ class ConfigCase5(Config):
     class Config:
         title = "Case 5 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 5 eslesme degeri"
+            "shortDescription": "Case 5 match value"
         }
 
 
 class ConfigCase6(Config):
-    """
-    Case 6 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 6."""
 
     name: Literal["Case6"] = "Case6"
     value: Optional[str] = None
@@ -278,15 +232,12 @@ class ConfigCase6(Config):
     class Config:
         title = "Case 6 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 6 eslesme degeri"
+            "shortDescription": "Case 6 match value"
         }
 
 
 class ConfigCase7(Config):
-    """
-    Case 7 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 7."""
 
     name: Literal["Case7"] = "Case7"
     value: Optional[str] = None
@@ -296,15 +247,12 @@ class ConfigCase7(Config):
     class Config:
         title = "Case 7 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 7 eslesme degeri"
+            "shortDescription": "Case 7 match value"
         }
 
 
 class ConfigCase8(Config):
-    """
-    Case 8 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 8."""
 
     name: Literal["Case8"] = "Case8"
     value: Optional[str] = None
@@ -314,15 +262,12 @@ class ConfigCase8(Config):
     class Config:
         title = "Case 8 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 8 eslesme degeri"
+            "shortDescription": "Case 8 match value"
         }
 
 
 class ConfigCase9(Config):
-    """
-    Case 9 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 9."""
 
     name: Literal["Case9"] = "Case9"
     value: Optional[str] = None
@@ -332,15 +277,12 @@ class ConfigCase9(Config):
     class Config:
         title = "Case 9 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 9 eslesme degeri"
+            "shortDescription": "Case 9 match value"
         }
 
 
 class ConfigCase10(Config):
-    """
-    Case 10 icin inputData ile karsilastirilacak deger.
-    Bos birakilirsa bu case atlanir.
-    """
+    """Value to compare with inputData for Case 10."""
 
     name: Literal["Case10"] = "Case10"
     value: Optional[str] = None
@@ -350,13 +292,9 @@ class ConfigCase10(Config):
     class Config:
         title = "Case 10 Match Value"
         json_schema_extra = {
-            "shortDescription": "Case 10 eslesme degeri"
+            "shortDescription": "Case 10 match value"
         }
 
-
-# ---------------------------------------------------------------------------
-# 4) CASE INSENSITIVE CONFIG
-# ---------------------------------------------------------------------------
 
 class OptionEnable(Config):
     name: Literal["enable"] = "enable"
@@ -374,15 +312,9 @@ class OptionDisable(Config):
     type: Literal["bool"] = "bool"
     field: Literal["option"] = "option"
 
-    class Config:
-        title = "Disable"
-
 
 class CaseInsensitive(Config):
-    """
-    Case degerleri karsilastirilirken buyuk/kucuk harf duyarliligini
-    belirler.
-    """
+    """Controls case-sensitive or case-insensitive matching."""
 
     name: Literal["caseInsensitive"] = "caseInsensitive"
     value: Union[OptionEnable, OptionDisable]
@@ -392,13 +324,9 @@ class CaseInsensitive(Config):
     class Config:
         title = "Case Insensitive"
         json_schema_extra = {
-            "shortDescription": "Buyuk/kucuk harf duyarliligi"
+            "shortDescription": "Case-insensitive matching"
         }
 
-
-# ---------------------------------------------------------------------------
-# 5) CONFIG AGGREGATION
-# ---------------------------------------------------------------------------
 
 class ExecutorConfigs(Configs):
     case1: ConfigCase1
@@ -414,27 +342,17 @@ class ExecutorConfigs(Configs):
     caseInsensitive: CaseInsensitive
 
 
-# ---------------------------------------------------------------------------
-# 6) REQUEST / RESPONSE
-# ---------------------------------------------------------------------------
-
 class PackageRequest(Request):
     inputs: Optional[PackageInputs]
     configs: ExecutorConfigs
 
     class Config:
-        json_schema_extra = {
-            "target": "configs"
-        }
+        json_schema_extra = {"target": "configs"}
 
 
 class PackageResponse(Response):
     outputs: PackageOutputs
 
-
-# ---------------------------------------------------------------------------
-# 7) EXECUTOR CONFIG
-# ---------------------------------------------------------------------------
 
 class ColorSwitch(Config):
     name: Literal["ColorSwitch"] = "ColorSwitch"
@@ -444,11 +362,7 @@ class ColorSwitch(Config):
 
     class Config:
         title = "Color Switch"
-        json_schema_extra = {
-            "target": {
-                "value": 0
-            }
-        }
+        json_schema_extra = {"target": {"value": 0}}
 
 
 class ConfigExecutor(Config):
@@ -459,14 +373,8 @@ class ConfigExecutor(Config):
 
     class Config:
         title = "Task"
-        json_schema_extra = {
-            "target": "value"
-        }
+        json_schema_extra = {"target": "value"}
 
-
-# ---------------------------------------------------------------------------
-# 8) PACKAGE CONFIGS / MODEL
-# ---------------------------------------------------------------------------
 
 class PackageConfigs(Configs):
     executor: ConfigExecutor
